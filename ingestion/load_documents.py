@@ -8,21 +8,34 @@ def load_txt_files(data_dir):
             docs.append(f.read())
     return docs
 
-# def load_pdf_files(data_dir):
-#     try:
-#         import PyPDF2
-#     except ImportError:
-#         raise ImportError("Install PyPDF2: pip install PyPDF2")
+def load_pdf_files(data_dir):
+    try:
+        import PyPDF2
+    except ImportError:
+        raise ImportError("Install PyPDF2: pip install PyPDF2")
 
-#     docs = []
-#     for file in Path(data_dir).glob("*.pdf"):
-#         with open(file, "rb") as f:
-#             reader = PyPDF2.PdfReader(f)
-#             text = ""
-#             for page in reader.pages:
-#                 text += page.extract_text() or ""
-#             docs.append(text)
-#     return docs
+    docs = []
+    for file in Path(data_dir).glob("*.pdf"):
+        with open(file, "rb") as f:
+            reader = PyPDF2.PdfReader(f)
+            text = ""
+            for page in reader.pages:
+                text += page.extract_text() or ""
+            docs.append(text)
+    return docs
+
+def load_single_pdf(file_path):
+    try:
+        import PyPDF2
+    except ImportError:
+        raise ImportError("Install PyPDF2: pip install PyPDF2")
+    
+    with open(file_path, "rb") as f:
+        reader = PyPDF2.PdfReader(f)
+        text = ""
+        for page in reader.pages:
+            text += page.extract_text() or ""
+    return text
 
 def main():
     # data_dir = "../data"
@@ -30,9 +43,9 @@ def main():
     data_dir = BASE_DIR.parent / "data"
 
     txt_docs = load_txt_files(data_dir)
-    # pdf_docs = load_pdf_files(data_dir)
+    pdf_docs = load_pdf_files(data_dir)
 
-    all_docs = txt_docs # + pdf_docs
+    all_docs = txt_docs + pdf_docs
     total_chars = sum(len(doc) for doc in all_docs)
 
     print(f"Number of documents: {len(all_docs)}")

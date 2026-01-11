@@ -1,0 +1,21 @@
+mployee Onboarding Overview
+
+Welcome to the organization. This document outlines the onboarding process for all new employees.
+
+1. Company Introduction
+Our company focuses on building scalable, customer-centric software solutions. We value ownership, operational excellence, and continuous learning.
+
+2. Working Hours and Expectations
+Employees are expected to work a standard 40-hour week. Flexible working hours are supported, provided business needs are met and communication remains clear.
+
+3. Security and Compliance
+All employees must adhere to company security policies. This includes protecting sensitive data, using approved devices, and following access control guidelines.
+
+4. Tools and Access
+New employees will be granted access to internal tools such as email, project management systems, and source control repositories during their first week.
+
+5. Performance and Growth
+Performance is reviewed quarterly. Employees are encouraged to set clear goals, seek feedback, and participate in learning and development programs.
+
+6. Code of Conduct
+All employees are expected to maintain professionalism, respect colleagues, and comply with ethical standards at all times.
