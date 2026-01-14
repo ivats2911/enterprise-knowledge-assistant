@@ -60,10 +60,10 @@ export const createMaintenanceLog = async (assetId: number, log: MaintenanceLog)
 };
 
 export const login = async (username: string, password: string): Promise<{ access_token: string }> => {
-    const formData = new FormData();
-    formData.append('username', username);
-    formData.append('password', password);
-    const response = await axios.post(`${API_URL}/token`, formData);
+    const params = new URLSearchParams();
+    params.append('username', username);
+    params.append('password', password);
+    const response = await axios.post(`${API_URL}/token`, params);
     return response.data;
 };
 

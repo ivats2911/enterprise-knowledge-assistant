@@ -1,4 +1,6 @@
-from fastapi import FastAPI, UploadFile, File, HTTPException, Depends
+from fastapi import FastAPI, UploadFile, File, HTTPException, Depends, status
+from datetime import timedelta
+from fastapi.security import OAuth2PasswordRequestForm
 from sqlmodel import Session, select
 from typing import List
 from contextlib import asynccontextmanager
@@ -6,10 +8,11 @@ import shutil
 import os
 
 from data.database import create_db_and_tables, engine
-from data.models import Gym, Asset, MaintenanceLog
+from data.models import Gym, Asset, MaintenanceLog, User
 from rag.rag_service import rag_service
 
 from fastapi.middleware.cors import CORSMiddleware
+from api.auth import get_password_hash, verify_password, create_access_token, get_current_active_user, ACCESS_TOKEN_EXPIRE_MINUTES
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
