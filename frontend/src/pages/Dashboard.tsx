@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import type { Gym } from '../types';
 import { getGyms, createGym } from '../api';
 import GymCard from '../components/GymCard';
-import { Plus } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
+import { Plus, LogOut } from 'lucide-react';
 
 const Dashboard: React.FC = () => {
     const [gyms, setGyms] = useState<Gym[]>([]);
@@ -11,6 +12,7 @@ const Dashboard: React.FC = () => {
     const [newGymName, setNewGymName] = useState('');
     const [newGymLocation, setNewGymLocation] = useState('');
     const navigate = useNavigate();
+    const { logout } = useAuth();
 
     useEffect(() => {
         loadGyms();
@@ -34,13 +36,38 @@ const Dashboard: React.FC = () => {
         loadGyms();
     };
 
+    const handleLogout = () => {
+        logout();
+        navigate('/login');
+    };
+
     return (
         <div className="page-container">
             <header className="page-header">
                 <h1>Gym Dashboard</h1>
-                <button className="primary-btn" onClick={() => setIsModalOpen(true)}>
-                    <Plus size={18} /> Add Gym
-                </button>
+                <div style={{ display: 'flex', gap: '10px' }}>
+                    <button className="primary-btn" onClick={() => setIsModalOpen(true)}>
+                        <Plus size={18} /> Add Gym
+                    </button>
+                    <button 
+                        onClick={handleLogout}
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            background: '#ef4444', // Red color for logout
+                            color: 'white',
+                            border: 'none',
+                            padding: '10px 16px',
+                            borderRadius: '8px',
+                            cursor: 'pointer',
+                            fontSize: '14px',
+                            fontWeight: 600
+                        }}
+                    >
+                        <LogOut size={18} /> Logout
+                    </button>
+                </div>
             </header>
 
             <div className="gym-grid">

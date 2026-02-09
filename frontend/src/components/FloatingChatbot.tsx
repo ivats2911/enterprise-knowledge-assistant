@@ -4,11 +4,16 @@ import { queryKnowledgeBase } from '../api';
 import { eventBus } from '../events';
 import '../index.css';
 
+import { useLocation } from 'react-router-dom';
+
 const FloatingChatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<{ text: string; sender: 'user' | 'bot' }[]>([]);
   const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const location = useLocation();
+
+  if (location.pathname === '/login') return null;
 
   useEffect(() => {
      const openChatHandler = (data: { message?: string } = {}) => {
