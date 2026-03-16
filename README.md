@@ -1,40 +1,60 @@
-# Enterprise Knowledge Assistant
+# Gym Knowledge Assistant 🏋️‍♂️🤖
 
-A full-stack application built to manage gym assets, track maintenance logs, and leverage **Retrieval-Augmented Generation (RAG)** to query equipment manuals using natural language.
+**Empowering Gym Operations with AI-Driven Equipment Intelligence.**
 
-## 🚀 Features
+GymKnowledge Assistant is a modern, full-stack platform designed for gym managers, facility owners, and maintenance teams. It moves beyond simple asset tracking by integrating **Retrieval-Augmented Generation (RAG)**, allowing users to "talk" to their equipment manuals to solve technical issues instantly.
 
-- **Asset Management**: Create and track gyms and their associated equipment/assets.
-- **Maintenance Logs**: Log maintenance activities for each asset to keep a history of repairs.
-- **Knowledge Base (RAG)**:
-  - Upload PDF manuals for specific assets.
-  - Automatically ingest and chunk documents into a vector store.
-  - Query the knowledge base to get AI-generated answers based on the uploaded manuals.
-- **Authentication**: Secure user login with **JWT** tokens and **Argon2** password hashing.
-- **Role-Based Access**: Default admin user creation for easy setup.
+---
+
+## 🌟 Why GymKnowledge Assistant?
+
+Maintenance teams often struggle with bulky PDF manuals, leading to equipment downtime and safety risks. GymKnowledge Assistant solves this by:
+- **Centralizing Assets**: Track every treadmill, weight machine, and facility asset in one place.
+- **AI-Powered Answers**: Ask questions like *"How do I recalibrate the LifeFitness T5 belt?"* and get instant, accurate answers extracted directly from your uploaded manuals.
+- **Maintenance History**: Keep a transparent log of repairs, costs, and technician notes to optimize equipment lifespan.
+
+## 🚀 Key Features
+
+### 📋 Asset & Facility Management
+- **Multi-Gym Support**: Manage multiple locations from a single dashboard.
+- **Detailed Asset Tracking**: Log purchase dates, serial numbers, and specific equipment notes.
+- **Automated Logs**: Track every maintenance event to identify high-cost or unreliable equipment.
+
+### 🧠 Intelligent AI Assistant (RAG)
+- **Manual Ingestion**: Simply upload a PDF manual for any asset.
+- **Smart Chunking**: The system automatically breaks down complex manuals into searchable, AI-ready "knowledge chunks."
+- **Natural Language Querying**: A floating chatbot is available on every page to answer maintenance and usage questions using OpenAI's powerful language models.
+
+### 🔐 Secure & Scalable
+- **Role-Based Security**: JWT-based authentication and secure password hashing (Argon2).
+- **Modern Tech Stack**: Built with FastAPI, React 19, and SQLModel for a fast, responsive, and type-safe experience.
+
+---
 
 ## 🛠️ Tech Stack
 
-### Backend
-- **Framework**: [FastAPI](https://fastapi.tiangolo.com/) (Python)
-- **Database**: [SQLModel](https://sqlmodel.tiangolo.com/) (SQLite)
-- **AI/RAG**: OpenAI API (Embeddings & Chat Completion)
-- **Authentication**: OAuth2 with Password Flow (JWT), Passlib (Argon2)
-- **PDF Processing**: PyPDF2
+### Backend (The Brain)
+- **FastAPI**: High-performance Python framework for building APIs.
+- **SQLModel & SQLite**: Elegant database management for asset and maintenance data.
+- **OpenAI API**: Powering the RAG engine (Embeddings & Chat Completion).
+- **PyPDF2**: For extracting knowledge from equipment manuals.
 
-### Frontend
-- **Framework**: [React 19](https://react.dev/)
-- **Build Tool**: [Vite](https://vitejs.dev/)
-- **Language**: TypeScript
-- **Styling**: CSS (Standard)
-- **Icons**: Lucide React
-- **HTTP Client**: Axios
+### Frontend (The Face)
+- **React 19 & Vite**: A lightning-fast, modern web interface.
+- **TypeScript**: Ensuring reliability and fewer bugs.
+- **Lucide React**: Clean, modern iconography.
+- **CSS3**: Responsive and intuitive design without heavy framework overhead.
+
+---
 
 ## 📋 Prerequisites
 
+Before you start, ensure you have:
 - **Python 3.10+**
 - **Node.js 18+** & **npm**
-- **OpenAI API Key**: Required for RAG functionality.
+- **OpenAI API Key**: Required for the AI Chatbot features.
+
+---
 
 ## ⚙️ Installation & Setup
 
@@ -45,84 +65,66 @@ cd enterprise-knowledge-assistant
 ```
 
 ### 2. Backend Setup
-Navigate to the root directory.
-
-1.  **Create a virtual environment:**
+1.  **Create and activate a virtual environment:**
     ```bash
     python -m venv .venv
+    # Windows:
+    .venv\Scripts\activate
+    # Mac/Linux:
+    source .venv/bin/activate
     ```
-2.  **Activate the virtual environment:**
-    - **Windows:**
-      ```powershell
-      .venv\Scripts\activate
-      ```
-    - **Mac/Linux:**
-      ```bash
-      source .venv/bin/activate
-      ```
-3.  **Install dependencies:**
+2.  **Install dependencies:**
     ```bash
     pip install -r requirements.txt
     ```
-4.  **Set up Environment Variables:**
-    Create a `.env` file in the root directory (or ensure your environment has the key set):
+3.  **Configure your environment:**
+    Create a `.env` file in the root directory:
     ```ini
     OPENAI_API_KEY=sk-your-openai-api-key-here
     ```
-    *(Note: JWT `SECRET_KEY` is currently set to a default value in `api/auth.py` for development. Change this for production.)*
 
 ### 3. Frontend Setup
-Navigate to the `frontend` directory.
-
 1.  **Install dependencies:**
     ```bash
     cd frontend
     npm install
     ```
 
+---
+
 ## 🚀 Running the Application
 
-### Start the Backend
-From the root directory (ensure venv is active):
-
+### 1. Start the Backend
+From the root directory (with venv active):
 ```bash
 uvicorn api.main:app --reload
 ```
-The API will be available at `http://127.0.0.1:8000`.
-- **Swagger Docs**: `http://127.0.0.1:8000/docs`
+- **API Docs**: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 
-### Start the Frontend
+### 2. Start the Frontend
 From the `frontend` directory:
-
 ```bash
 npm run dev
 ```
-The application will launch at `http://localhost:5173`.
+- **Application**: [http://localhost:5173](http://localhost:5173)
 
-## 🔐 Default Login
-
-When the backend starts for the first time, it creates a default admin user:
-
+### 🔐 Default Access
+On first run, the system creates a default administrator:
 - **Username**: `admin`
 - **Password**: `password123`
 
+---
+
 ## 📂 Project Structure
 
-```
-enterprise-knowledge-assistant/
-├── api/                 # FastAPI routes and main application
-├── data/                # Database models and SQLite file
-├── frontend/            # React + Vite frontend application
-├── ingestion/           # Document processing scripts
-├── rag/                 # RAG service (Embeddings, Vector Store)
-├── requirements.txt     # Python dependencies
-└── README.md            # Project documentation
-```
+- `api/`: FastAPI routes, authentication, and core logic.
+- `data/`: Database models, SQLite storage, and uploaded manuals.
+- `frontend/`: React + Vite frontend application.
+- `rag/`: The AI engine (Chunking, Embeddings, Vector Store).
+- `ingestion/`: Specialized scripts for document processing.
+
+---
 
 ## 🤝 Contributing
 
-1.  Fork the repository.
-2.  Create a feature branch (`git checkout -b feature/amazing-feature`).
-3.  Commit your changes (`git commit -m 'Add amazing feature'`).
-4.  Push to the branch (`git push origin feature/amazing-feature`).
-5.  Open a Pull Request.
+We welcome contributions! Feel free to fork the repo, create a feature branch, and submit a Pull Request.
